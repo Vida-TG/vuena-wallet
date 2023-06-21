@@ -17,7 +17,7 @@ const Dashboard = () => {
   return (
     <>
         <div>Dashboard</div>
-        <div>{kP}</div>
+        <div>{kP ? kP.publicKey.toBase58() : "HI" }</div>
     </>
   )
 }

@@ -1,6 +1,7 @@
 import { AES, enc } from 'crypto-js';
+import * as web3 from '@solana/web3.js';
 
-
+const LOCK_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
 
 export function encryptKeypair(keypair, password) {
   const privateKeyString = keypair.secretKey.toString();
@@ -10,8 +11,8 @@ export function encryptKeypair(keypair, password) {
 
 export function decryptKeypair(encryptedPrivateKey, password) {
   const decryptedPrivateKey = AES.decrypt(encryptedPrivateKey, password).toString(enc.Utf8);
-  const privateKeyBytes = Uint8Array.from(JSON.parse(decryptedPrivateKey));
-  return Keypair.fromSecretKey(privateKeyBytes);
+  const privateKeyBytes = Uint8Array.from(JSON.parse('['+decryptedPrivateKey+']'));
+  return web3.Keypair.fromSecretKey(privateKeyBytes);
 }
 
 

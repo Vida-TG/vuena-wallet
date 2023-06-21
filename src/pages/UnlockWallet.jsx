@@ -3,8 +3,8 @@ import { unlockWallet } from '../utils/utils';
 import Dashboard from './Dashboard';
 
 const UnlockWallet = () => {
-    const [password, setPassword] = useState('');
-    const [unlocked, setUnlocked] = useState(false);
+    const [password, setPassword] = React.useState('');
+    const [unlocked, setUnlocked] = React.useState(false);
     
     const handleChangePassword = (e) => {
         setPassword(e.target.value);

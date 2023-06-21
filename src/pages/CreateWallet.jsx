@@ -4,7 +4,7 @@ import * as web3 from '@solana/web3.js';
 import * as bip39 from 'bip39';
 import { derivePath } from 'ed25519-hd-key';
 
-import { encryptKeypair } from '../utils/utils';
+import { encryptKeypair, saveWallet } from '../utils/utils';
 
 const CreateWallet = () => {
     const [keypair, setKeypair] = useState(null);
@@ -17,7 +17,7 @@ const CreateWallet = () => {
         const mnemonic = bip39.generateMnemonic(256);
         const x = derivePath("m/44'/501'/0'/0'", bip39.mnemonicToSeedSync(mnemonic)).key;
         const keyp = web3.Keypair.fromSeed(x)
-        const publicKey = keyp.publicKey.toBase58()
+        
         setKeypair(keyp);
         setMnemonics(mnemonic);
 
