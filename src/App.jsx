@@ -1,14 +1,19 @@
-import { useState } from 'react'
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css'
 
-import CreateWallet from './pages/CreateWallet'
+import InitialPage from './pages/InitialPage'
+import Dashboard from "./pages/Dashboard";
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <CreateWallet />
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<InitialPage/>}/>
+          <Route exact path="/portfolio" element={<Dashboard/>}/>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }

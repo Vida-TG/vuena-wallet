@@ -1,26 +1,4 @@
-
-import * as web3 from '@solana/web3.js';
-import * as nacl from 'tweetnacl';
-import * as bip39 from 'bip39';
-import { derivePath } from 'ed25519-hd-key';
 import { AES, enc } from 'crypto-js';
-
-
-
-
-
-export async function generateWallet(){
-    const mnemonic = bip39.generateMnemonic(256);
-    const x = derivePath("m/44'/501'/0'/0'", bip39.mnemonicToSeedSync(mnemonic)).key;
-    const wallet = web3.Keypair.fromSeed(x)
-    const publicKey = wallet.publicKey.toBase58()
-    
-    return ( wallet, mnemonic )
-}
-
-
-
-
 
 
 

@@ -13,6 +13,16 @@ const UnlockWallet = () => {
         setUnlocked(unlockWallet(password));
     };
 
+    useEffect(() => {
+        // Check if the lock timer has expired
+        const lockExpiration = localStorage.getItem('lockExpiration');
+        if (lockExpiration && Date.now() < parseInt(lockExpiration)) {
+            setUnlocked(true)
+        } else {
+            setUnlocked(false)
+        }
+        
+    }, []);
 
     return (
         <>

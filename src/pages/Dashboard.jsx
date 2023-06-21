@@ -1,5 +1,5 @@
-import React from 'react'
-import decryptKeypair from '../utils/utils'
+import React, { useEffect } from 'react'
+import { decryptKeypair } from '../utils/utils'
 
 const Dashboard = () => {
     const [kP, setkP] = React.useState(null)
