@@ -1,10 +1,11 @@
 import React from 'react'
 import { generateWallet } from '../utils/utils'
+import { encryptAndStoreKeypair } from '../utils/utils'
 
 const CreateWallet = () => {
 
     function createWallet() {
-        generateWallet()
+        console.log(generateWallet())
     }
 
     return (
