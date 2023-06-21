@@ -15,7 +15,7 @@ export async function generateWallet(){
     const wallet = web3.Keypair.fromSeed(x)
     const publicKey = wallet.publicKey.toBase58()
     
-    return wallet
+    return ( wallet, mnemonic )
 }
 
 
@@ -24,13 +24,13 @@ export async function generateWallet(){
 
 
 
-function encryptKeypair(keypair, password) {
+export function encryptKeypair(keypair, password) {
   const privateKeyString = keypair.secretKey.toString();
   const encryptedPrivateKey = AES.encrypt(privateKeyString, password).toString();
   return encryptedPrivateKey;
 }
 
-function decryptKeypair(encryptedPrivateKey, password) {
+export function decryptKeypair(encryptedPrivateKey, password) {
   const decryptedPrivateKey = AES.decrypt(encryptedPrivateKey, password).toString(enc.Utf8);
   const privateKeyBytes = Uint8Array.from(JSON.parse(decryptedPrivateKey));
   return Keypair.fromSecretKey(privateKeyBytes);
@@ -41,14 +41,14 @@ function decryptKeypair(encryptedPrivateKey, password) {
 
 
 
-const setLockTimer = () => {
+export const setLockTimer = () => {
     // Set the lock expiration
     const lockExpiration = Date.now() + LOCK_TIMEOUT;
     localStorage.setItem('lockExpiration', lockExpiration.toString());
 }
 
   
-const saveWallet = (encryptedPrivateKey, password) => {
+export const saveWallet = (encryptedPrivateKey, password) => {
 
     // Save the encrypted keypair and password in localStorage
     localStorage.setItem('encryptedPrivateKey', encryptedPrivateKey);
@@ -56,21 +56,12 @@ const saveWallet = (encryptedPrivateKey, password) => {
 
     setLockTimer()
     
-    return (
-        setKeypair(wallet),
-        setPassword(password),
-        setLockTimer(timer)
-    )
+    return true;
   };
 
 
 
-  
-    const lockWallet = () => {
-        // Remove states
-    }
-
-  const unlockWallet = (enteredPassword) => {
+  export const unlockWallet = (enteredPassword) => {
     const storedPassword = localStorage.getItem('password');
   
     if (enteredPassword === storedPassword) {

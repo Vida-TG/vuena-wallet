@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import unlockWallet from '../utils/utils'
+import { unlockWallet } from '../utils/utils';
 import Dashboard from './Dashboard';
 
 const UnlockWallet = () => {
