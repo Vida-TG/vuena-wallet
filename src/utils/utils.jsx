@@ -3,6 +3,7 @@ import * as web3 from '@solana/web3.js';
 import * as nacl from 'tweetnacl';
 import * as bip39 from 'bip39';
 import { derivePath } from 'ed25519-hd-key';
+import { AES, enc } from 'crypto-js';
 
 
 
@@ -11,26 +12,10 @@ import { derivePath } from 'ed25519-hd-key';
 export async function generateWallet(){
     const mnemonic = bip39.generateMnemonic(256);
     const x = derivePath("m/44'/501'/0'/0'", bip39.mnemonicToSeedSync(mnemonic)).key;
-    const privateKey = nacl.sign.keyPair.fromSeed(x).secretKey;
-    const account = new web3.Account(privateKey);
-
-    let privateKeySerialized = privateKey.toString()
-    let publicKeySerialized = account.publicKey.toBase58()
+    const wallet = web3.Keypair.fromSeed(x)
+    const publicKey = wallet.publicKey.toBase58()
     
-
-    const encryptionKey = new Uint8Array(32);
-    window.crypto.getRandomValues(encryptionKey);
-    
-
-    // Encrypt the private key using the encryption key
-    const encryptedPrivateKey = nacl.secretbox(
-        nacl.util.decodeUTF8(privateKeySerialized),
-        encryptionKey
-    );
-    console.log(encryptedPrivateKey)
-    return (
-        privateKeySerialized, publicKeySerialized
-    )
+    return wallet
 }
 
 
@@ -38,37 +23,60 @@ export async function generateWallet(){
 
 
 
-// Encrypt and store the user's keypair
-export function encryptAndStoreKeypair(privateKeySerialized, publicKeySerialized) {
-  // Generate a random encryption key
-  const encryptionKey = new Uint8Array(32);
-  window.crypto.getRandomValues(encryptionKey);
+
+function encryptKeypair(keypair, password) {
+  const privateKeyString = keypair.secretKey.toString();
+  const encryptedPrivateKey = AES.encrypt(privateKeyString, password).toString();
+  return encryptedPrivateKey;
+}
+
+function decryptKeypair(encryptedPrivateKey, password) {
+  const decryptedPrivateKey = AES.decrypt(encryptedPrivateKey, password).toString(enc.Utf8);
+  const privateKeyBytes = Uint8Array.from(JSON.parse(decryptedPrivateKey));
+  return Keypair.fromSecretKey(privateKeyBytes);
+}
+
+
+
+
+
+
+const setLockTimer = () => {
+    // Set the lock expiration
+    const lockExpiration = Date.now() + LOCK_TIMEOUT;
+    localStorage.setItem('lockExpiration', lockExpiration.toString());
+}
+
   
+const saveWallet = (encryptedPrivateKey, password) => {
 
-  // Encrypt the private key using the encryption key
-  const encryptedPrivateKey = nacl.secretbox(
-    nacl.util.decodeUTF8(privateKeySerialized),
-    encryptionKey
-  );
+    // Save the encrypted keypair and password in localStorage
+    localStorage.setItem('encryptedPrivateKey', encryptedPrivateKey);
+    localStorage.setItem('password', password);
 
-  // Store the encrypted private key, public key, and encryption key in memory
-  sessionStorage.setItem('encryptedPrivateKey', nacl.util.encodeBase64(encryptedPrivateKey));
-  sessionStorage.setItem('publicKey', publicKeySerialized);
-  sessionStorage.setItem('encryptionKey', nacl.util.encodeBase64(encryptionKey));
+    setLockTimer()
+    
+    return (
+        setKeypair(wallet),
+        setPassword(password),
+        setLockTimer(timer)
+    )
+  };
 
-  console.log(`Keypair encrypted and stored in memory: ${encryptedPrivateKey}`);
-}
 
-// Decrypt the private key for transaction
-function decryptPrivateKey() {
-  // Retrieve the encrypted private key, public key, and encryption key from memory
-  const encryptedPrivateKey = nacl.util.decodeBase64(sessionStorage.getItem('encryptedPrivateKey'));
-  const publicKey = sessionStorage.getItem('publicKey');
-  const encryptionKey = nacl.util.decodeBase64(sessionStorage.getItem('encryptionKey'));
 
-  // Decrypt the private key using the encryption key
-  const decryptedPrivateKey = nacl.secretbox.open(encryptedPrivateKey, encryptionKey);
+  
+    const lockWallet = () => {
+        // Remove states
+    }
 
-  // Perform the transaction using the private key and public key
-  performTransaction(decryptedPrivateKey, publicKey);
-}
+  const unlockWallet = (enteredPassword) => {
+    const storedPassword = localStorage.getItem('password');
+  
+    if (enteredPassword === storedPassword) {
+        setLockTimer();
+        return(true);
+    } else {
+        return false;
+    }
+  };
