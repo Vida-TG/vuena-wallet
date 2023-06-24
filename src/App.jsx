@@ -3,6 +3,8 @@ import './App.css'
 
 import InitialPage from './pages/InitialPage'
 import Dashboard from "./pages/Dashboard";
+import Demo from "./pages/Demo";
+import Encrypt from "./pages/Encrypt";
 
 function App() {
 
@@ -10,7 +12,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<InitialPage/>}/>
+          <Route exact path="/" element={<Encrypt/>}/>
           <Route exact path="/portfolio" element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
