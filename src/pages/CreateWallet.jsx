@@ -8,6 +8,7 @@ import { encryptKeypair, saveWallet } from '../utils/utils';
 
 const CreateWallet = () => {
     const [keypair, setKeypair] = useState(null);
+    const [proxyKeypair, setProxyKeypair] = useState(null);
     const [password, setPassword] = useState('');
     const [mnemonics, setMnemonics] = useState(null);
     const navigate = useNavigate();
@@ -16,17 +17,17 @@ const CreateWallet = () => {
     async function handleGenerateWallet(){
         const mnemonic = bip39.generateMnemonic(256);
         const x = derivePath("m/44'/501'/0'/0'", bip39.mnemonicToSeedSync(mnemonic)).key;
-        const keyp = web3.Keypair.fromSeed(x)
+        const y = derivePath("m/44'/501'/0'/1'", bip39.mnemonicToSeedSync(mnemonic)).key;
+        setKeypair(web3.Keypair.fromSeed(x))
+        setProxyKeypair(web3.Keypair.fromSeed(y))
         
-        setKeypair(keyp);
         setMnemonics(mnemonic);
-
-        console.log(mnemonic)
     }
 
     const handleContinue = () => {
-        let encryptedPrivateKey = encryptKeypair(keypair, password)
-        saveWallet(encryptedPrivateKey, password)
+        let { encryptedPrivateKey, proxyEncryptedPrivateKey } = encryptKeypair(keypair, proxyKeypair, password)
+        console.log({encryptedPrivateKey, proxyEncryptedPrivateKey})
+        saveWallet(encryptedPrivateKey, proxyEncryptedPrivateKey, password)
         navigate("/portfolio");
     };
 
@@ -56,6 +57,7 @@ const CreateWallet = () => {
         <div>
           <p>Mnemonic: {mnemonics}</p>
           <p>Public Key: {keypair && keypair.publicKey.toBase58()}</p>
+          <p>Proxy p.key: {proxyKeypair && proxyKeypair.publicKey.toBase58()}</p>
           <button onClick={handleContinue}>Continue</button>
         </div>
       )}

@@ -3,10 +3,14 @@ import * as web3 from '@solana/web3.js';
 
 const LOCK_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
 
-export function encryptKeypair(keypair, password) {
+export function encryptKeypair(keypair, proxyKeypair, password) {
   const privateKeyString = keypair.secretKey.toString();
   const encryptedPrivateKey = AES.encrypt(privateKeyString, password).toString();
-  return encryptedPrivateKey;
+
+  const proxyPrivateKeyString = proxyKeypair.secretKey.toString();
+  const proxyEncryptedPrivateKey = AES.encrypt(proxyPrivateKeyString, password).toString();
+  console.log({encryptedPrivateKey, proxyEncryptedPrivateKey})
+  return ({encryptedPrivateKey, proxyEncryptedPrivateKey});
 }
 
 export function decryptKeypair(encryptedPrivateKey, password) {
@@ -27,10 +31,11 @@ export const setLockTimer = () => {
 }
 
   
-export const saveWallet = (encryptedPrivateKey, password) => {
+export const saveWallet = (encryptedPrivateKey, proxyEncryptedPrivateKey, password) => {
 
     // Save the encrypted keypair and password in localStorage
-    localStorage.setItem('encryptedPrivateKey', encryptedPrivateKey);
+    localStorage.setItem('encrypted', encryptedPrivateKey);
+    localStorage.setItem('encryptedII', proxyEncryptedPrivateKey);
     localStorage.setItem('password', password);
 
     setLockTimer()

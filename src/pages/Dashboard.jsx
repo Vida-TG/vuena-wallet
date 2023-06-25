@@ -7,7 +7,7 @@ const Dashboard = () => {
   const [sendState, setSendState] = React.useState(false);
   const [balance, setBalance] = React.useState(0)
 
-  const encryptedPrivateKey = localStorage.getItem('encryptedPrivateKey');
+  const encryptedPrivateKey = localStorage.getItem('encrypted');
   const storedPassword = localStorage.getItem('password');
 
   // Decrypt the keypair

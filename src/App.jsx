@@ -5,6 +5,7 @@ import InitialPage from './pages/InitialPage'
 import Dashboard from "./pages/Dashboard";
 import Demo from "./pages/Demo";
 import Encrypt from "./pages/Encrypt";
+import ReceiveDemo from "./pages/Receive";
 
 function App() {
 
@@ -12,7 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Encrypt/>}/>
+          <Route exact path="/" element={<ReceiveDemo/>}/>
           <Route exact path="/portfolio" element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
