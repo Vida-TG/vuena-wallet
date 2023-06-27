@@ -1,9 +1,9 @@
 //Fund with walletadapter
 import React, { useState } from 'react';
-import { Connection, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
-import { WalletAdapterNetwork, WalletConnection } from '@solana/wallet-adapter-react';
-import { WalletDialogButton } from '@solana/wallet-adapter-material-ui';
+import { Connection, LAMPORTS_PER_SOL, SystemProgram, Transaction  } from '@solana/web3.js';
+import { WalletMultiButton } from '@solana/wallet-adapter-react-ui';
 import { getParams } from './boilerplate';
+import { decryptKeypair } from '../utils/utils';
 
 const FundKeypair = () => {
   const [connection, setConnection] = useState(null);
@@ -12,12 +12,18 @@ const FundKeypair = () => {
 
   // Function to handle connecting the wallet
   const handleConnectWallet = async () => {
-    const network = WalletAdapterNetwork.Devnet; // Adjust network based on your requirements
-    const walletConnection = new WalletConnection(network);
-    await walletConnection.connect();
+    const { wallet, publicKey, connection } = await getConnectedWallet();
+    setConnectedWallet(wallet);
+    setConnection(connection);
+  };
 
-    setConnectedWallet(walletConnection);
-    setConnection(new Connection(network.url));
+  // Function to retrieve the connected wallet
+  const getConnectedWallet = async () => {
+    const wallet = await window.solana.connect();
+    const publicKey = wallet.publicKey;
+    const connection = new Connection('https://api.devnet.solana.com'); // Adjust the network URL based on your requirements
+
+    return { wallet, publicKey, connection };
   };
 
   // Function to handle funding the browser's keypair
@@ -27,15 +33,30 @@ const FundKeypair = () => {
       return;
     }
 
-    const { elusiv, keyPair } = await getParams();
+    const encryptedPrivateKey = localStorage.getItem('encrypted');
+    const storedPassword = localStorage.getItem('password');
+
+    // Decrypt the keypair
+    const decryptedKeypair = decryptKeypair(encryptedPrivateKey, storedPassword);
+    const { elusiv } = await getParams(decryptedKeypair);
     const lamports = 1 * LAMPORTS_PER_SOL; // Adjust the funding amount based on your requirements
+// Create an empty transaction
+const transaction = new Transaction();
 
-    // Build the top-up transaction
-    const topupTx = await elusiv.buildTopUpTx(lamports, 'LAMPORTS');
+// Add a System Program instruction to transfer lamports to the keypair's public key
+transaction.add(
+  SystemProgram.transfer({
+    fromPubkey: connectedWallet.publicKey,
+    toPubkey: decryptedKeypair.publicKey,
+    lamports,
+  })
+);
 
-    // Sign and send the transaction
-    const signedTx = await connectedWallet.signTransaction(topupTx.tx);
-    const { signature } = await connection.sendRawTransaction(signedTx.serialize());
+// Sign the transaction using the connected wallet
+const signedTransaction = await connection.signTransaction(transaction);
+
+// Send the signed transaction
+const { signature } = await connection.sendRawTransaction(signedTransaction.serialize());
 
     console.log(`Top-up transaction sent with signature: ${signature}`);
     setFunded(true);
@@ -44,11 +65,11 @@ const FundKeypair = () => {
   return (
     <div>
       <h1>Fund Keypair</h1>
-      <WalletDialogButton onClick={handleConnectWallet} />
+      <WalletMultiButton onClick={handleConnectWallet} />
 
       {connectedWallet && (
         <div>
-          <p>Connected Wallet: {connectedWallet.publicKey.toBase58()}</p>
+          <p>Connected Wallet: {connectedWallet.publicKey.toString()}</p>
           {!funded && (
             <button onClick={handleFundKeypair}>Fund Keypair</button>
           )}
