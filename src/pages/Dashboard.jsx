@@ -7,11 +7,9 @@ const Dashboard = () => {
   const [sendState, setSendState] = React.useState(false);
   const [balance, setBalance] = React.useState(0)
 
-  const encryptedPrivateKey = localStorage.getItem('encrypted');
-  const storedPassword = localStorage.getItem('password');
-
-  // Decrypt the keypair
-  const decryptedKeypair = decryptKeypair(encryptedPrivateKey, storedPassword);
+  let data = localStorage.getItem('data');
+  data = JSON.parse(data)
+  const decryptedKeypair = decryptKeypair(data.encrypted, data.nonce, data.salt);
       
   const [kP, setkP] = React.useState(decryptedKeypair)
 
@@ -20,7 +18,6 @@ const Dashboard = () => {
     setSendState(true)
   };
 
-  
 
   const handleAirdrop = async () => {
     await implementAirdrop(kP)
@@ -28,12 +25,12 @@ const Dashboard = () => {
   };
 
 
-    useEffect(() => {
-      const getBL = async () => {
-        setBalance(await updateBalance(kP));
-      }
-      getBL()
-    }, []);
+  useEffect(() => {
+    const getBL = async () => {
+      setBalance(await updateBalance(kP));
+    }
+    getBL()
+  }, []);
 
   return (
     <>

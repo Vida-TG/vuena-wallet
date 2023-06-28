@@ -4,13 +4,14 @@ import * as web3 from '@solana/web3.js';
 import * as bip39 from 'bip39';
 import { derivePath } from 'ed25519-hd-key';
 
-import { encryptKeypair, saveWallet } from '../utils/utils';
+import { encryptAccessPassword, encryptKeypair, saveWallet } from '../utils/utils';
 
 const CreateWallet = () => {
     const [keypair, setKeypair] = useState(null);
     const [proxyKeypair, setProxyKeypair] = useState(null);
     const [password, setPassword] = useState('');
     const [mnemonics, setMnemonics] = useState(null);
+    
     const navigate = useNavigate();
 
 
@@ -24,10 +25,10 @@ const CreateWallet = () => {
         setMnemonics(mnemonic);
     }
 
-    const handleContinue = () => {
-        let { encryptedPrivateKey, proxyEncryptedPrivateKey } = encryptKeypair(keypair, proxyKeypair, password)
-        console.log({encryptedPrivateKey, proxyEncryptedPrivateKey})
-        saveWallet(encryptedPrivateKey, proxyEncryptedPrivateKey, password)
+    const handleContinue = async () => {
+        let {encrypted, encryptedII, nonce, salt} = await encryptKeypair(keypair, proxyKeypair)
+        let access = await encryptAccessPassword(password)
+        saveWallet(encrypted, encryptedII, access, nonce, salt)
         navigate("/portfolio");
     };
 

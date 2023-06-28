@@ -7,15 +7,14 @@ const InitialPage = () => {
     const [ pW, setPW ] = React.useState(null)
 
     useEffect(() => {
-        const encryptedPrivateKey = localStorage.getItem('encrypted');
-        const storedPassword = localStorage.getItem('password');
-        
-        if (encryptedPrivateKey && storedPassword) {
-            setEPK(encryptedPrivateKey);
-            setPW(storedPassword);
-        }
+      let data = localStorage.getItem('data');
+      data = JSON.parse(data)
+      if (data && data.encrypted && data.access) {
+          setEPK(data.encrypted);
+          setPW(data.access);
+      }
             
-      }, []);
+    }, []);
 
 
   return (

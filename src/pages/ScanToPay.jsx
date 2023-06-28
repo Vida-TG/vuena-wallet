@@ -7,19 +7,6 @@ const ReceiveDemo = () => {
   const [publicKey, setPublicKey] = useState('');
   const qrReaderRef = useRef(null);
 
-  // Function to generate a keypair from the second account in the mnemonic
-  const generateKeypair = () => {
-    // Replace `mnemonic` with your actual Solana mnemonic
-    const mnemonic = 'your-solana-mnemonic';
-    const seed = mnemonic.split(' ')[11]; // Get the seed phrase for the second account
-
-    // Generate the keypair from the seed
-    const keypair = generatePrivateKey(seed);
-
-    // Set the public key in the state
-    setPublicKey(keypair.publicKey.toBase58());
-  };
-
   // Function to handle scanning the QR code
   const handleScan = (data) => {
     if (data) {
