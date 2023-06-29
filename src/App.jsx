@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import ReceiveDemo from "./pages/Receive";
 import WalletAdapter from "./pages/Wallet";
 import Onboarding from "./pages/Onboarding";
+import CreateWallet from "./pages/CreateWallet";
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Onboarding/>}/>
           <Route exact path="/portfolio" element={<Dashboard/>}/>
+          <Route exact path="/create-wallet" element={<CreateWallet/>}/>
         </Routes>
       </BrowserRouter>
     </>

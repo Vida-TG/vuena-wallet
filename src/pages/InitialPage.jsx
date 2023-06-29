@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import UnlockWallet from './UnlockWallet';
 import CreateWallet from './CreateWallet';
+import Onboarding from './Onboarding';
 
 const InitialPage = () => {
     const [ ePK, setEPK ] = React.useState(null)
@@ -19,7 +20,7 @@ const InitialPage = () => {
 
   return (
     <>
-        { ePK && pW ? <UnlockWallet /> : <CreateWallet /> }
+        { ePK && pW ? <UnlockWallet /> : <Onboarding /> }
     </>
   )
 }
