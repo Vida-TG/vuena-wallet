@@ -5,6 +5,7 @@ import InitialPage from './pages/InitialPage'
 import Dashboard from "./pages/Dashboard";
 import ReceiveDemo from "./pages/Receive";
 import WalletAdapter from "./pages/Wallet";
+import Onboarding from "./pages/Onboarding";
 
 function App() {
 
@@ -12,7 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<InitialPage/>}/>
+          <Route exact path="/" element={<Onboarding/>}/>
           <Route exact path="/portfolio" element={<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
