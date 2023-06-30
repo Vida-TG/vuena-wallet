@@ -12,6 +12,17 @@
     color: rgb(0, 0, 0);
     font-size: larger;
 }
+.password-box-2 {
+    width: 100%;
+    padding: 25px 5px 25px 15px;
+    margin: 15px 0px;
+    font-size: x-large;
+    background-color: transparent;
+    border: 2px solid rgb(148, 147, 147);
+    border-radius: 5px;
+    outline: none;
+    color: rgb(255, 255, 255);
+}
 .wrapper {
     width: 100%;
 }
@@ -36,6 +47,40 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.mnemonics {
+    position: relative;
+    width: 90%;
+    margin: 0px auto 40px auto;
+    
+}
+.download-warnings {
+    color: rgb(246, 31, 31);
+    height: 100px;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bolder;
+}
+.back-btn {
+    position: relative;
+    top: -20px;
+    left: -8%;
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 8px 2px rgb(43, 42, 42);
+    background-color: rgba(32, 29, 29, 0.585);
+}
+
+.btn:hover {
+    cursor: pointer;
 }
 
 @media screen and (max-width: 768px) {
