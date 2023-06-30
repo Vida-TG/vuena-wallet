@@ -24,18 +24,20 @@ const Dashboard = () => {
     setBalance(await updateBalance(kP))
   };
 
+  const getBL = async () => {
+    setBalance(await updateBalance(kP))
+  }
 
   useEffect(() => {
-    const getBL = async () => {
-      setBalance(await updateBalance(kP));
-    }
-    getBL()
+    getBL().then(
+      console.log(balance)
+    )
   }, []);
 
   return (
     <>
       {!sendState &&
-        <>
+        <div className='blobs'>
           <div>Vuena</div>
           <div>{kP && kP.publicKey.toBase58()}</div>
           
@@ -44,7 +46,8 @@ const Dashboard = () => {
 
           <button onClick={handleSendTokens}>Send</button>
           <button onClick={handleAirdrop}>Airdrop</button>
-        </>
+          <button >Refresh balance</button>
+        </div>
       }
       {sendState &&
         <>

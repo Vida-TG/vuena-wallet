@@ -4,7 +4,7 @@ import {
   PublicKey
 } from '@solana/web3.js';
 import { Elusiv, TokenType } from '@elusiv/sdk';
-import { getParams } from './boilerplate.jsx';
+import { getParams } from '../utils/boilerplate'
 import { decryptKeypair } from '../utils/utils';
 
 function SendComponent() {

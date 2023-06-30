@@ -207,7 +207,7 @@ const CreateWallet = () => {
               />
               <div className='download-warnings'>{warning}</div>
               <button className='generate-btn btn' onClick={handleDownloadPhrase}>Download encrypted passphrase <FaFileDownload /></button>
-              <button className='generate-btn btn'>Continue</button>
+              <button className='generate-btn btn' onClick={handleContinue}>Continue</button>
             </div>
             }
           </div>

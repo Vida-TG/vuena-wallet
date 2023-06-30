@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Connection, PublicKey, Keypair, LAMPORTS_PER_SOL } from '@solana/web3.js';
 import { WalletAdapterNetwork, WalletConnection } from '@solana/wallet-adapter-react';
 import { WalletDialogButton } from '@solana/wallet-adapter-material-ui';
-import { getParams } from './boilerplate';
+import { getParams } from '../utils/boilerplate';
 
 const SendSOL = () => {
   const [connection, setConnection] = useState(null);

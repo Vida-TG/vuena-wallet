@@ -1,7 +1,6 @@
 //Pay with vuena
 import React, { useState, useRef } from 'react';
 import QrReader from 'react-qr-reader';
-import { generatePrivateKey } from './boilerplate';
 
 const ReceiveDemo = () => {
   const [publicKey, setPublicKey] = useState('');
