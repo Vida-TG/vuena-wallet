@@ -1,0 +1,23 @@
+diff --git a/node_modules/@elusiv/sdk/index.cjs.js b/node_modules/@elusiv/sdk/index.cjs
+similarity index 100%
+rename from node_modules/@elusiv/sdk/index.cjs.js
+rename to node_modules/@elusiv/sdk/index.cjs
+diff --git a/node_modules/@elusiv/sdk/package.json b/node_modules/@elusiv/sdk/package.json
+index c2c2b66..21dbbe0 100644
+--- a/node_modules/@elusiv/sdk/package.json
++++ b/node_modules/@elusiv/sdk/package.json
+@@ -1,11 +1,11 @@
+ {
+     "name": "@elusiv/sdk",
+     "version": "0.1.13",
+-    "main": "index.cjs.js",
+-    "module": "index.esm.js",
++    "main": "index.cjs",
++    "module": "index.cjs",
+     "types": "index.d.ts",
+     "files": [
+-        "index.cjs.js",
++        "index.cjs",
+         "index.d.ts"
+     ],
+     "engines": {

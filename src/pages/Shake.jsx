@@ -2,4 +2,12 @@
 // Import
 // Transaction scan
 
-//Seed, encrypted, encryptedII, Salt, password
+//Dashboard
+//-Scan to pay
+//-Fund via wallet
+//Unlock wallet
+//-Fund wallet
+//-Send
+//-Receive
+
+//Seed, encrypted, encryptedII, Salt, password, nonce

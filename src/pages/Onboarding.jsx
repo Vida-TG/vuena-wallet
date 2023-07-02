@@ -15,7 +15,7 @@ const Onboarding = () => {
                         <a href="#">What Is A Vault Wallet?</a>
                         <a href="#">Features</a>
                     </div>
-                    <div class="top-right-section">
+                    <div className="top-right-section">
                         <a href="/create-wallet">Hop In</a>
                     </div>
                 </div>

@@ -2,31 +2,33 @@ import React, { useState, useEffect } from 'react';
 import QrCode from 'qrcode.react';
 import { decryptKeypair } from '../utils/utils';
 
-const ReceiveDemo = () => {
-  const [publicKey, setPublicKey] = useState('');
+const Receive = () => {
+  const [publicKeyII, setPublicKeyII] = useState('');
 
-  
+  const handleCopy = () => {
+    navigator.clipboard.writeText(publicKeyII)
+  }
+
   useEffect(() => {
-    const encryptedProxy = localStorage.getItem('encryptedII');
-    const storedPassword = localStorage.getItem('password');
-    const keyPair = decryptKeypair(encryptedProxy, storedPassword);
+    let data = localStorage.getItem('data');
+    data = JSON.parse(data)
+    const decryptedKeypair = decryptKeypair(data.encryptedII, data.nonce, data.salt);
     
-    setPublicKey(keyPair.publicKey.toBase58());
+    setPublicKeyII(decryptedKeypair.publicKey.toBase58());
     },
   );
 
   return (
-    <div>
-      <h1>Receive Demo</h1>
-
-      {publicKey && (
-        <div>
-          <h3>Public Key:</h3>
-          <p>{publicKey}</p>
-
-          <div>
-            <h3>QR Code:</h3>
-            <QrCode value={publicKey} />
+    <div className='receive-popup-main'>
+      {publicKeyII && (
+      <div>
+        <p style={{fontSize: "large"}}>Public wallet address:</p>
+        <p onClick={handleCopy} style={{cursor:"pointer"}}>{publicKeyII.substr(0, 5) + "..." + publicKeyII.substr(-3)} (Click to copy)</p>
+          <div style={{display: "flex", justifyContents: "center", alignItems: "center", width: '100%'}}>
+            <div style={{width: "100%"}}>
+              <h5>QR Code:</h5>
+              <div style={{margin: "auto"}}><QrCode value={publicKeyII} /></div>
+            </div>
           </div>
         </div>
       )}
@@ -34,4 +36,4 @@ const ReceiveDemo = () => {
   );
 };
 
-export default ReceiveDemo;
+export default Receive;

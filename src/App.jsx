@@ -1,12 +1,12 @@
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import './App.css'
 
-import InitialPage from './pages/InitialPage'
 import Dashboard from "./pages/Dashboard";
-import ReceiveDemo from "./pages/Receive";
-import WalletAdapter from "./pages/Wallet";
 import Onboarding from "./pages/Onboarding";
 import CreateWallet from "./pages/CreateWallet";
+
+import './font/YsabeauOffice-Black.ttf'
+import './font/YsabeauOffice-Light.ttf'
 
 function App() {
 

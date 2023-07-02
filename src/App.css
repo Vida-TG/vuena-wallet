@@ -1,0 +1,8 @@
+@font-face {
+    font-family: "Ysa";
+    src: local("Ysa"), url(./font/YsabeauOffice-Black.ttf) format('truetype')
+}
+@font-face {
+    font-family: "Ysa light";
+    src: local("Ysa"), url(./font/YsabeauOffice-Light.ttf) format('truetype')
+}

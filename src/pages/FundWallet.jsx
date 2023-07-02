@@ -14,11 +14,11 @@ import {
   TorusWalletAdapter
 } from "@solana/wallet-adapter-wallets";
 import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
-import Tt from "./tt";
+import FundKeypairII from "./FundII";
 
 import "@solana/wallet-adapter-react-ui/styles.css";
 
-export default function WalletAdapter() {
+export default function FundWalletAdapter() {
   const network = WalletAdapterNetwork.Devnet;
 
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
@@ -37,9 +37,9 @@ export default function WalletAdapter() {
 
   return (
     <ConnectionProvider endpoint={endpoint}>
-      <WalletProvider wallets={wallets} autoConnect>
+      <WalletProvider wallets={wallets}>
         <WalletModalProvider>
-          <Tt />
+          <FundKeypairII />
         </WalletModalProvider>
       </WalletProvider>
     </ConnectionProvider>

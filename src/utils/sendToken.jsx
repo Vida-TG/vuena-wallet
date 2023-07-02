@@ -55,6 +55,7 @@ export async function sendSol(recipientAddress, amount, keypair) {
       return true;
     } catch (error) {
       console.error('Error requesting airdrop:', error);
+      return false;
     }
   };
   

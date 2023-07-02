@@ -34,9 +34,6 @@ body {
     border: none;
     border-radius: 7px;
     background-color: rgba(0, 0, 0, 0.4);
-    /*
-    background: url("phone.svg") no-repeat bottom right;
-    */
     backdrop-filter: blur(90px);
     text-align: left;
     padding: 3rem 4rem;
