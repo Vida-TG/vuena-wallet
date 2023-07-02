@@ -4,6 +4,7 @@ import { Connection, PublicKey } from '@solana/web3.js';
 function TransactionHistory({ publicKey }) {
   const [transactions, setTransactions] = useState([]);
 
+
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
@@ -28,7 +29,7 @@ function TransactionHistory({ publicKey }) {
       { transactions.length > 0 ?
         transactions.map((transaction) => (
           <div key={transaction.signature}>
-            <p style={{fontFamily: "Ysa Light"}}>Signature: {transaction.signature}</p>
+            <p style={{fontFamily: "Ysa Light"}}>Signature: <a style={{textDecoration:"none", color:"#ccc", fontFamily:"Ysa Light", margin:"15px 0px"}}href={"https://solscan.io/tx/"+transaction.signature+"?cluster=devnet"}>{transaction.signature}</a></p>
           </div>
         ))
           :

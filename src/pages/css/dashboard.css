@@ -163,7 +163,28 @@ body {
     align-items: space-between;
     backdrop-filter: blur(10px);
 }
-
+.send-box {
+    width: 100% !important;
+    display: block;
+    padding: 5px 5%;
+}
+.send-input {
+    width: 80% !important;
+    display: block;
+    padding: 5px 5%;
+    margin: 10px 0px;
+}
+.send-click {
+    color: #fff;
+    background: #222;
+}
+.send-div {
+    width: 80% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3px 5%;
+}
 .amount-btn {
     width: 63%;
     padding: 15px 10px;

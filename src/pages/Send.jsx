@@ -77,24 +77,25 @@ function SendComponent() {
 
   return (
     <div>
-      <p style={{fontSize: "large"}}>Send Solana</p>
-      <div>
-        <WalletMultiButton />
-        <label>Recipient Address:</label>
-        <div className="amount-form">    
-                        <input className='generate-box'
-                            type="text"
-                            placeholder="Address"
-                            value={address}
-                            onChange={handleAddressChange}
-                        />
-                        <input className='generate-box'
-                            type="number"
-                            placeholder="Amount"
-                            value={amount}
-                            onChange={handleAmountChange}
-                        />
-            <button className="generate-btn btn" onClick={handleSend}>Send</button>
+      <p style={{fontSize: "large", textAlign: "center"}}>Send SOL</p>
+      <div style={{padding: "15px", textAlign: "center"}}>
+        You can send to your external wallet
+        <div style={{width: "100%", display: "flex", justifyContent: "center", alignItems: "center"}}><WalletMultiButton /></div>
+        <div className="send-box">
+          Or send to others  
+          <input className='send-input'
+            type="text"
+            placeholder="Address"
+            value={address}
+            onChange={handleAddressChange}
+          />
+          <input className='send-input'
+            type="number"
+            placeholder="Amount"
+            value={amount}
+            onChange={handleAmountChange}
+          />
+          <div className="send-div"><button className="send-input send-click btn" onClick={handleSend}>Send</button></div>
         </div>
         
       </div>
