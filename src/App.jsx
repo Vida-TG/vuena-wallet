@@ -14,7 +14,7 @@ function App() {
     <>
       <BrowserRouter>
         <Routes>
-          <Route exact path="/" element={<Onboarding/>}/>
+          <Route exact path="/" element={<CreateWallet/>}/>
           <Route exact path="/portfolio" element={<Dashboard/>}/>
           <Route exact path="/create-wallet" element={<CreateWallet/>}/>
         </Routes>

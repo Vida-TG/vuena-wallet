@@ -4,13 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import * as web3 from '@solana/web3.js';
 import * as bip39 from 'bip39';
 import { derivePath } from 'ed25519-hd-key';
-import { FaAngleLeft, FaFileExport, FaFileDownload, FaLock, FaCopy } from 'react-icons/fa';
+import { FaAngleLeft, FaFileDownload, FaLock, FaCopy } from 'react-icons/fa';
 import helpSVG from './images/helpus.svg'
 import importSVG from './images/import-w.svg'
 
 import './css/createwallet.css'
 
 import { encryptAccessPassword, encryptKeypair, saveWallet } from '../utils/utils';
+import ImportWalletPage from './ImportMnemonics';
+import { handleEncryptMnemonic } from './DownloadMnemonics';
 
 const MATCHING = "Passwords match, you can continue"
 const NO_MATCH = "Passwords not matching"
@@ -54,7 +56,7 @@ const CreateWallet = () => {
 
     const handleDownloadPhrase = (e) => {
       if(preDownload) {
-        console.log("DOWNLOAD")
+        handleEncryptMnemonic(mnemonics, mnemonicsPassword)
         setConfirmedDownload(true)
         setWarning(DOWNLOADED_WARNING)
       } else {
@@ -179,7 +181,7 @@ const CreateWallet = () => {
                     value={importPassword}
                     onChange={(e) => {setImportPassword(e.target.value)}}
                   />
-                  <button className='generate-btn btn'>Import Wallet <FaFileExport /></button>
+                  <ImportWalletPage inputPassword={importPassword} unlockPassword={password}/>
                   <img className="illustration-img" src={importSVG} style={{opacity: ".1"}} alt="Import securely"/>
                 </div>
               }

@@ -1,10 +1,14 @@
-//Pay with vuena
 import React, { useState, useRef } from 'react';
 import QrReader from 'react-qr-reader';
 
 const ReceiveDemo = () => {
   const [publicKey, setPublicKey] = useState('');
-  const qrReaderRef = useRef(null);
+
+  // Function to generate a new keypair
+  const generateKeypair = () => {
+    // Generate the keypair logic goes here
+    // Update the publicKey state with the generated public key
+  };
 
   // Function to handle scanning the QR code
   const handleScan = (data) => {
@@ -24,6 +28,8 @@ const ReceiveDemo = () => {
     qrReaderRef.current.openImageDialog();
   };
 
+  const qrReaderRef = useRef(null);
+
   return (
     <div>
       <h1>Receive Demo</h1>
@@ -38,7 +44,7 @@ const ReceiveDemo = () => {
       )}
 
       <div>
-        <h3>Scan to Receive QR Code:</h3>
+        <h3>Scan to pay with QR Code:</h3>
         <button onClick={startScan}>Start Scan</button>
         <QrReader
           ref={qrReaderRef}

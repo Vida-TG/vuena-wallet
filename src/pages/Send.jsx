@@ -62,6 +62,7 @@ function SendComponent() {
   const handleSend = async () => {
     try {
       await sendAnonymously(address, amount, keyPair);
+      setAmount("")
       alert(`You successfully sent ${amount} SOL to ${address}`);
     } catch (error) {
       console.error('Error sending SOL:', error);
