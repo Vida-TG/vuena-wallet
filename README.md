@@ -14,5 +14,5 @@ This avoids hacks whereby the wallet a user wants to send funds to is switched t
 Vuena is an entirely different type of wallet - it is a Vault so it works hand in hand with the current wallets - Phantom, solflare and others, it serves as a secure vault from which users send to their mobile flexible wallets
 
 ## Other Details
-Website Link:  <br/>
+Website Link:  https://vuena.vercel.app/<br/>
 Personal Twitter profile: https://twitter.com/MoyoWrites
