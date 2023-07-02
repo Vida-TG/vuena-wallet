@@ -1,5 +1,5 @@
 # vuena-wallet
-The first Solana vault wallet with privacy features by Elusiv
+The first security-first vault on Solana with privacy features by Elusiv
 
 Our current non-custodial wallets offer freedom for people to do basically anything including handling their raw passphrase, connecting to random DApps which makes users prone to hacks, data loss, loss of funds and most importantly - lack of privacy
 Vuena wallet is a vault that fixes all these by:
