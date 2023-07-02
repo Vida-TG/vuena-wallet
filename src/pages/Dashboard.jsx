@@ -14,6 +14,7 @@ const Dashboard = () => {
   const [balance, setBalance] = React.useState(0)
   const [privacy, setPrivacy] = React.useState(true)
   const [receiveOn, setReceiveOn] = React.useState(false)
+  const [scanOn, setScanOn] = React.useState(false)
 
   let data = localStorage.getItem('data');
   data = JSON.parse(data)
@@ -52,8 +53,8 @@ const Dashboard = () => {
     <>
       {!sendState &&
         <div className='blobs'>
-          <div className="container" style={{opacity: receiveOn ? ".2" : "1" }}>
-            <div className="scan-to-pay btn">
+          <div className="container" style={{opacity: (receiveOn || scanOn) ? ".2" : "1" }}>
+            <div  onClick={()=>{setScanOn(false)}} className="scan-to-pay btn">
               <FaQrcode style={{fontSize:"50px"}}/>
             </div>
 
@@ -115,10 +116,23 @@ const Dashboard = () => {
                 </div>
               }
 
+              { scanOn &&
+                <div className="receive-popup">
+                  <div className='back-receive generate-btn btn' onClick={()=>{setReceiveOn(false)}}>X</div>
+                  COMING SOON
+                </div>
+              }
+
         </div>
       }
       {sendState &&
         <>
+        <div className='blobs'>
+          <div className="receive-popup">
+            <div className='back-receive generate-btn btn' onClick={()=>{setSendState(false)}}>X</div>
+            <Send />
+          </div>
+          </div>
         </>
       }
 

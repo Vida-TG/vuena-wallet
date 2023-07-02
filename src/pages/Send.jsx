@@ -6,15 +6,23 @@ import {
 import { Elusiv, TokenType } from '@elusiv/sdk';
 import { getParams } from '../utils/boilerplate'
 import { decryptKeypair } from '../utils/utils';
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { WalletMultiButton } from "@solana/wallet-adapter-react-ui";
 
 function SendComponent() {
   const [address, setAddress] = useState('');
   const [amount, setAmount] = useState('');
+  const { publicKey, connected } = useWallet();
 
   let data = localStorage.getItem('data');
   data = JSON.parse(data)
   const keyPair = decryptKeypair(data.encrypted, data.nonce, data.salt);
 
+  useEffect(() => {
+    if (connected) {
+        setAddress(publicKey)
+    }
+}, [connected]);
   const handleAddressChange = (e) => {
     setAddress(e.target.value);
   };
@@ -45,7 +53,7 @@ function SendComponent() {
       console.log("11.111")
       const sendSig = await elusiv.sendElusivTx(sendTx);
 
-      console.log('Ta-da!');
+      alert(`You successfully sent ${amount} to ${address}`);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -57,16 +65,26 @@ function SendComponent() {
 
   return (
     <div>
-      <h1>Send Tokens</h1>
+      <p style={{fontSize: "large"}}>Send Solana</p>
       <div>
         <label>Recipient Address:</label>
-        <input type="text" value={address} onChange={handleAddressChange} />
+        <div className="amount-form">    
+                        <input className='generate-box'
+                            type="text"
+                            placeholder="Address"
+                            value={address}
+                            onChange={handleAddressChange}
+                        />
+                        <input className='generate-box'
+                            type="number"
+                            placeholder="Amount"
+                            value={amount}
+                            onChange={handleAmountChange}
+                        />
+            <button className="generate-btn btn" onClick={handleSend}>Send</button>
+        </div>
+        
       </div>
-      <div>
-        <label>Amount to Send:</label>
-        <input type="text" value={amount} onChange={handleAmountChange} />
-      </div>
-      <button onClick={handleSend}>Send</button>
     </div>
   );
 }
