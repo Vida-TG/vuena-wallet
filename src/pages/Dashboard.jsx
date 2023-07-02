@@ -8,6 +8,8 @@ import Send from './Send'
 import TransactionHistory from './Transactions'
 import Receive from './Receive'
 import FundWalletAdapter from './FundWallet'
+import SendWithWalletAdapter from './SendToWallets'
+import RefillVault from './RefillVault'
 
 const Dashboard = () => {
   const [sendState, setSendState] = React.useState(false);
@@ -54,7 +56,7 @@ const Dashboard = () => {
       {!sendState &&
         <div className='blobs'>
           <div className="container" style={{opacity: (receiveOn || scanOn) ? ".2" : "1" }}>
-            <div  onClick={()=>{setScanOn(false)}} className="scan-to-pay btn">
+            <div  onClick={()=>{setScanOn(true)}} className="scan-to-pay btn">
               <FaQrcode style={{fontSize:"50px"}}/>
             </div>
 
@@ -63,7 +65,7 @@ const Dashboard = () => {
               <div>
                 <h2>Vault Address</h2>
                 <p style={{fontSize: '10px', fontFamily: 'Ysa Light'}}>(Do not share this address publicly)</p>
-                <button className='refill btn'>Refill vault</button>
+                  <RefillVault />
                 { privacy ? 
                   <div>
                     <p className='publickey'><FaStarOfLife /><FaStarOfLife /><FaStarOfLife /></p>
@@ -118,8 +120,8 @@ const Dashboard = () => {
 
               { scanOn &&
                 <div className="receive-popup">
-                  <div className='back-receive generate-btn btn' onClick={()=>{setReceiveOn(false)}}>X</div>
-                  COMING SOON
+                  <div className='back-receive generate-btn btn' onClick={()=>{setScanOn(false)}}>X</div>
+                  <h2 style={{textAlign: "center"}}>SCAN TO PAY COMING SOON</h2>
                 </div>
               }
 
@@ -130,7 +132,7 @@ const Dashboard = () => {
         <div className='blobs'>
           <div className="receive-popup">
             <div className='back-receive generate-btn btn' onClick={()=>{setSendState(false)}}>X</div>
-            <Send />
+            <SendWithWalletAdapter />
           </div>
           </div>
         </>
