@@ -16,4 +16,3 @@ It provides security but still gives users full custody of their keys, also redu
 
 ## Other Details
 Website Link:  https://vuena.vercel.app/<br/>
-Personal Twitter profile: https://twitter.com/MoyoWrites
